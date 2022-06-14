@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="React的生命周期分为三个阶段：挂载期（也叫实例化期）、更新期（也叫存在期）、卸载期（也叫销毁期）。在每个周期中React都提供了一些钩子函数。...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react——diff">
+<meta property="og:url" content="http://example.com/2021/06/10/react/react%20%20diff/index.html">
+<meta property="og:site_name" content="Sola&#39;s Blog">
+<meta property="og:description" content="React的生命周期分为三个阶段：挂载期（也叫实例化期）、更新期（也叫存在期）、卸载期（也叫销毁期）。在每个周期中React都提供了一些钩子函数。...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181213112349545.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDA3ODc1,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181213152745415.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDA3ODc1,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-06-10T13:32:43.000Z">
+<meta property="article:modified_time" content="2022-06-14T08:18:34.195Z">
+<meta property="article:author" content="Sola">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181213112349545.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDA3ODc1,size_16,color_FFFFFF,t_70">
+
+
+<link rel="canonical" href="http://example.com/2021/06/10/react/react%20%20diff/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/06/10/react/react%20%20diff/","path":"2021/06/10/react/react  diff/","title":"react——diff"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>react——diff | Sola's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sola's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am superman~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags" rel="section"><i class="fa fa-calendar fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM%E7%9A%84Diffing%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">DOM的Diffing算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-dom-%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.</span> <span class="nav-text">virtual dom 基本步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">diff算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9Fdiff-%E5%AF%B9%E6%AF%94-react-diff"><span class="nav-number">1.3.</span> <span class="nav-text">传统diff 对比 react diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-diff-%E4%B8%89%E5%A4%A7%E7%AD%96%E7%95%A5"><span class="nav-number">1.4.</span> <span class="nav-text">React diff 三大策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9FDOM%E6%A0%91%E5%88%86%E5%B1%82%E6%AF%94%E8%BE%83%EF%BC%88tree-diff%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">虚拟DOM树分层比较（tree diff）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E9%97%B4%E7%9A%84%E6%AF%94%E8%BE%83%EF%BC%88component-diff%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">组件间的比较（component diff）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E9%97%B4%E7%9A%84%E6%AF%94%E8%BE%83%EF%BC%88element-diff%EF%BC%89"><span class="nav-number">1.4.3.</span> <span class="nav-text">元素间的比较（element diff）</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sola"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Sola</p>
+  <div class="site-description" itemprop="description">hello world</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sola-grj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sola-grj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5484887335" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5484887335" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1313562402&auto=1&height=66"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/10/react/react%20%20diff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Sola">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sola's Blog">
+      <meta itemprop="description" content="hello world">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="react——diff | Sola's Blog">
+      <meta itemprop="description" content="React的生命周期分为三个阶段：挂载期（也叫实例化期）、更新期（也叫存在期）、卸载期（也叫销毁期）。在每个周期中React都提供了一些钩子函数。...">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react——diff
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-10 21:32:43" itemprop="dateCreated datePublished" datetime="2021-06-10T21:32:43+08:00">2021-06-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-14 16:18:34" itemprop="dateModified" datetime="2022-06-14T16:18:34+08:00">2022-06-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">React的生命周期分为三个阶段：挂载期（也叫实例化期）、更新期（也叫存在期）、卸载期（也叫销毁期）。在每个周期中React都提供了一些钩子函数。...</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="DOM的Diffing算法"><a href="#DOM的Diffing算法" class="headerlink" title="DOM的Diffing算法"></a>DOM的Diffing算法</h2><p>什么是虚拟DOM<br>当我们更新了state中的值的时候，React会去调用render()方法来重新渲染整个组件的UI，但是如果我们真的去操作这么大量的DOM，显然性能是堪忧的。所以React实现了一个Virtual DOM，组件的真实DOM结构和Virtual DOM之间有一个映射的关系，React在虚拟DOM上实现了一个diff算法，当render()去重新渲染组件的时候，diff会找到需要变更的DOM，然后再把修改更新到浏览器上面的真实DOM上，所以，React并不是渲染了整个DOM树，Virtual DOM就是JS数据结构，所以比原生的DOM快得多。</p>
+<h3 id="virtual-dom-基本步骤"><a href="#virtual-dom-基本步骤" class="headerlink" title="virtual dom 基本步骤"></a>virtual dom 基本步骤</h3><p>①用JS对象构建一颗虚拟DOM树，然后用虚拟树构建一颗真实的DOM树，然后插入到文档中。<br>②当状态变更时，重新构造一颗新的对象树，然后新树旧树进行比较，记录两树差异。<br>③把步骤2的差异应用到步骤1所构建的真实DOM树上，视图就更新了。</p>
+<h3 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h3><p>其实React的 <code>virtual dom</code>的性能好也离不开它本身特殊的<code>diff</code>算法。传统的<code>diff</code>算法时间复杂度达到o(n3)，而react的<code>diff</code>算法时间复杂度只是o(n)，react的diff能减少到o(n)依靠的是<code>react diff</code>的三大策略。</p>
+<h3 id="传统diff-对比-react-diff"><a href="#传统diff-对比-react-diff" class="headerlink" title="传统diff 对比 react diff"></a>传统diff 对比 react diff</h3><p>传统的diff算法追求的是“完全”以及“最小”，而react diff则是放弃了这两种追求：<br>在传统的diff算法下，对比前后两个节点，如果发现节点改变了，会继续去比较节点的子节点，一层一层去对比。就这样循环递归去进行对比，复杂度就达到了o(n3)，n是树的节点数，想象一下如果这棵树有1000个节点，我们得执行上十亿次比较，这种量级的对比次数，时间基本要用秒来做计数单位了。那么react究竟是如何把复杂度降低到o(n)的呢？</p>
+<h3 id="React-diff-三大策略"><a href="#React-diff-三大策略" class="headerlink" title="React diff 三大策略"></a>React diff 三大策略</h3><p>策略一（tree diff）：Web UI中DOM节点跨层级的移动操作特别少，可以忽略不计。（DOM结构发生改变—–直接卸载并重新creat）<br>策略二（component diff）：DOM结构一样—–不会卸载,但是会update<br>策略三（element diff）：所有同一层级的子节点.他们都可以通过key来区分—–同时遵循1.2两点</p>
+<h4 id="虚拟DOM树分层比较（tree-diff）"><a href="#虚拟DOM树分层比较（tree-diff）" class="headerlink" title="虚拟DOM树分层比较（tree diff）"></a>虚拟DOM树分层比较（tree diff）</h4><p>两棵树只会对同一层次的节点进行比较，忽略DOM节点跨层级的移动操作。React只会对相同颜色方框内的DOM节点进行比较，即同一个父节点下的所有子节点。当发现节点已经不存在，则该节点及其子节点会被完全删除掉，不会用于进一步的比较。这样只需要对树进行一次遍历，便能完成整个DOM树的比较。由此一来，最直接的提升就是复杂度变为线型增长而不是原先的指数增长。<br><img src="https://img-blog.csdnimg.cn/20181213112349545.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDA3ODc1,size_16,color_FFFFFF,t_70" alt="Diff"></p>
+<h4 id="组件间的比较（component-diff）"><a href="#组件间的比较（component-diff）" class="headerlink" title="组件间的比较（component diff）"></a>组件间的比较（component diff）</h4><p>如果是同一个类型的组件，则按照原策略进行Virtual DOM比较。<br>如果不是同一类型的组件，则将其判断为dirty component，从而替换整个组价下的所有子节点。<br>如果是同一个类型的组件，有可能经过一轮Virtual DOM比较下来，并没有发生变化。如果我们能够提前确切知道这一点，那么就可以省下大量的diff运算时间。因此，React允许用户通过shouldComponentUpdate()来判断该组件是否需要进行diff算法分析。</p>
+<p><img src="https://img-blog.csdnimg.cn/20181213152745415.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDA3ODc1,size_16,color_FFFFFF,t_70" alt="组件对比"></p>
+<p>如上图所示，当组件D变为组件G时，哪怕这两个组件结构相似，一旦React判断D和G是不用类型的组件，就不会比较两者的结构，而是直接删除组件D，重新创建组件G及其子节点。也就是说，如果当两个组件是不同类型但结构相似时，其实进行diff算法分析会影响性能，但是毕竟不同类型的组件存在相似DOM树的情况在实际开发过程中很少出现，因此这种极端因素很难在实际开发过程中造成重大影响。</p>
+<h4 id="元素间的比较（element-diff）"><a href="#元素间的比较（element-diff）" class="headerlink" title="元素间的比较（element diff）"></a>元素间的比较（element diff）</h4><p>当节点处于同一层级的时候，react diff 提供了三种节点操作：插入、删除、移动。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>新节点不存在于老集合当中，即全新的节点，就会执行插入操作</td>
+</tr>
+<tr>
+<td>移动</td>
+<td>新节点在老集合中存在，并且只做了位置上的更新，就会复用之前的节点，做移动操作（依赖于Key）</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>新节点在老集合中存在，但节点做出了更改不能直接复用，做出删除操作</td>
+</tr>
+</tbody></table>
+<p>经典面试题：</p>
+<p>1.react/vue中的key有什么作用？（key的内部原理是什么）</p>
+<p>2.为什么遍历列表时，key最好不用index</p>
+<p>1.虚拟DOM中key的作用：</p>
+<ol>
+<li>简单的说：key是虚拟DOM对象的标识，在更新显示时，key起着至关重要的作用</li>
+<li>详细的说：当状态中的数据发生变化时，react会根据新数据生成新的虚拟DOM，随后react进行新虚拟DOM和旧虚拟DOM的diff对比，比较规则如下<ol>
+<li>旧虚拟 DOM中找到了与新虚拟DOM相同的key：<ol>
+<li>若虚拟DOM中内容没有变化，直接使用之前的真实DOM</li>
+<li>若虚拟DOM中的内容变了，则生成真实DOM，随后替换掉页面之前的真实DOM</li>
+</ol>
+</li>
+<li>旧虚拟DOM中未找到与新虚拟DOM相同的key<ol>
+<li>根据数据创建新的真实DOM，随后渲染到页面</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>2.用index作为key可能引发的问题</p>
+<ol>
+<li>若对数据进行：逆序添加、逆序删除等破坏顺序的操作：会产生没有必要的真实DOM更新 ==&gt; 页面没有问题，但是效率会很低</li>
+<li>如果结构中还包含输入类DOM：会产生错误DOM == &gt; 页面有问题</li>
+</ol>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;</span><br><span class="line">	<span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">		<span class="variable language_">super</span>(props)</span><br><span class="line">		<span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">			<span class="attr">list</span>: [&#123;<span class="attr">id</span>: <span class="number">1</span>,<span class="attr">val</span>: <span class="string">&#x27;A&#x27;</span>&#125;, &#123;<span class="attr">id</span>: <span class="number">2</span>, <span class="attr">val</span>: <span class="string">&#x27;B&#x27;</span>&#125;, &#123;<span class="attr">id</span>: <span class="number">3</span>, <span class="attr">val</span>: <span class="string">&#x27;C&#x27;</span>&#125;]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="title function_">click</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">list</span>.<span class="title function_">reverse</span>()</span><br><span class="line">		<span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;</span></span><br><span class="line"><span class="language-xml">                	this.state.list.map((item, index) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">                        return (</span></span><br><span class="line"><span class="language-xml">                            <span class="tag">&lt;<span class="name">Li</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span> <span class="attr">val</span>=<span class="string">&#123;item.val&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                		)</span></span><br><span class="line"><span class="language-xml">                    &#125;)</span></span><br><span class="line"><span class="language-xml">                &#125;</span></span><br><span class="line"><span class="language-xml">                 <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.click.bind(this)&#125;</span>&gt;</span>Reverse<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line">		)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Li</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;</span><br><span class="line">	<span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">		<span class="variable language_">super</span>(props)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;===mount===&#x27;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="title function_">componentWillUpdate</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;===update====&#x27;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;this.props.val&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">		)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/10/react/react%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="prev" title="react——生命周期">
+                  <i class="fa fa-chevron-left"></i> react——生命周期
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sola</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
