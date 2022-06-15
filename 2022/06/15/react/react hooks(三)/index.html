@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react——hooks(拓展hook之useImperativeHandle、useLayoutEffect、useDebugValue)">
+<meta property="og:url" content="http://example.com/2022/06/15/react/react%20hooks(%E4%B8%89)/index.html">
+<meta property="og:site_name" content="Sola&#39;s Blog">
+<meta property="og:description" content="Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。...">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-15T13:32:43.000Z">
+<meta property="article:modified_time" content="2022-06-15T09:47:28.728Z">
+<meta property="article:author" content="Sola">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/06/15/react/react%20hooks(%E4%B8%89)/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/15/react/react%20hooks(%E4%B8%89)/","path":"2022/06/15/react/react hooks(三)/","title":"react——hooks(拓展hook之useImperativeHandle、useLayoutEffect、useDebugValue)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>react——hooks(拓展hook之useImperativeHandle、useLayoutEffect、useDebugValue) | Sola's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sola's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am superman~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags" rel="section"><i class="fa fa-calendar fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Hooks"><span class="nav-number">1.</span> <span class="nav-text">React Hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-useImperativeHandle"><span class="nav-number">1.1.</span> <span class="nav-text">7.useImperativeHandle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-useLayoutEffect"><span class="nav-number">1.2.</span> <span class="nav-text">8.useLayoutEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-useDebugValue"><span class="nav-number">1.3.</span> <span class="nav-text">9.useDebugValue</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sola"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Sola</p>
+  <div class="site-description" itemprop="description">hello world</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sola-grj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sola-grj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5484887335" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5484887335" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1313562402&auto=1&height=66"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/15/react/react%20hooks(%E4%B8%89)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Sola">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sola's Blog">
+      <meta itemprop="description" content="hello world">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="react——hooks(拓展hook之useImperativeHandle、useLayoutEffect、useDebugValue) | Sola's Blog">
+      <meta itemprop="description" content="Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。...">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react——hooks(拓展hook之useImperativeHandle、useLayoutEffect、useDebugValue)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-15 21:32:43 / 修改时间：17:47:28" itemprop="dateCreated datePublished" datetime="2022-06-15T21:32:43+08:00">2022-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。...</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="React-Hooks"><a href="#React-Hooks" class="headerlink" title="React Hooks"></a>React Hooks</h2><p><em>Hook</em> 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。</p>
+<h3 id="7-useImperativeHandle"><a href="#7-useImperativeHandle" class="headerlink" title="7.useImperativeHandle"></a>7.useImperativeHandle</h3><p><code>useImperativeHandle</code> 可以让你在使用 <code>ref</code> 时自定义暴露给父组件的实例值。在大多数情况下，应当避免使用 ref 这样的命令式代码。<code>useImperativeHandle</code> 应当与 <a target="_blank" rel="noopener" href="https://react.docschina.org/docs/react-api.html#reactforwardref"><code>forwardRef</code></a> 一起使用：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">FancyInput</span>(<span class="params">props, ref</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>();</span><br><span class="line">  <span class="title function_">useImperativeHandle</span>(ref, <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">focus</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      inputRef.<span class="property">current</span>.<span class="title function_">focus</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;));</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;inputRef&#125;</span> <span class="attr">...</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">FancyInput</span> = <span class="title function_">forwardRef</span>(<span class="title class_">FancyInput</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，渲染 <code>&lt;FancyInput ref=&#123;inputRef&#125; /&gt;</code> 的父组件可以调用 <code>inputRef.current.focus()</code>。</p>
+<h3 id="8-useLayoutEffect"><a href="#8-useLayoutEffect" class="headerlink" title="8.useLayoutEffect"></a>8.useLayoutEffect</h3><p>1.useEffect会在渲染的内容更新到DOM上后执行,不会阻塞DOM的更新<br>2.useLayoutEffect会在渲染的内容更新到DOM上之前进行,会阻塞DOM的更新</p>
+<p>其函数签名与 <code>useEffect</code> 相同，但它会在所有的 DOM 变更之后同步调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。在浏览器执行绘制之前，<code>useLayoutEffect</code> 内部的更新计划将被同步刷新。</p>
+<p>尽可能使用标准的 <code>useEffect</code> 以避免阻塞视觉更新。</p>
+<p>示例代码：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useState, useEffect, useLayoutEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">UseLayoutEffect</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [count,setCount] = <span class="title function_">useState</span>(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useLayoutEffect</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(count ===<span class="number">0</span>)&#123;</span><br><span class="line">      <span class="title function_">setCount</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>())</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,[count])</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>数字:&#123;count&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;e</span>=&gt;</span>setCount(0)&#125;&gt;修改数字<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们把count变成一个随机数， 虽然可以实现，但是当我们点击修改的时候其实是有一个闪烁的 因为它先把数字变为了0，再变成了随机数</p>
+<p>但是当我们这样写把里面的useEffect换成了useLayoutEffect，页面就不会发生这个闪烁了，这个useLayoutEffect其实在开发中不太常用，一些特殊情况才会用。</p>
+<h3 id="9-useDebugValue"><a href="#9-useDebugValue" class="headerlink" title="9.useDebugValue"></a>9.useDebugValue</h3><p><code>useDebugValue</code> 可用于在 React 开发者工具中显示自定义 hook 的标签。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">useFriendStatus</span>(<span class="params">friendID</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [isOnline, setIsOnline] = <span class="title function_">useState</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 在开发者工具中的这个 Hook 旁边显示标签  // e.g. &quot;FriendStatus: Online&quot;  useDebugValue(isOnline ? &#x27;Online&#x27; : &#x27;Offline&#x27;);</span></span><br><span class="line">  <span class="keyword">return</span> isOnline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在某些情况下，格式化值的显示可能是一项开销很大的操作。除非需要检查 Hook，否则没有必要这么做。</p>
+<p>因此，<code>useDebugValue</code> 接受一个格式化函数作为可选的第二个参数。该函数只有在 Hook 被检查时才会被调用。它接受 debug 值作为参数，并且会返回一个格式化的显示值。</p>
+<p>例如，一个返回 <code>Date</code> 值的自定义 Hook 可以通过格式化函数来避免不必要的 <code>toDateString</code> 函数调用：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useDebugValue</span>(date, <span class="function"><span class="params">date</span> =&gt;</span> date.<span class="title function_">toDateString</span>());</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/15/react/react%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/" rel="prev" title="react——组件通信">
+                  <i class="fa fa-chevron-left"></i> react——组件通信
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/15/react/react%20hooks(%E4%B8%80)/" rel="next" title="react——hooks(基础hook)">
+                  react——hooks(基础hook) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sola</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
