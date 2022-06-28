@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/1.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/1.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在*saga*中，全局监听器和接收器使用*Generator*函数和*saga*自身的一些辅助函数实现对整个流程的管控 ...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redux-saga">
+<meta property="og:url" content="http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20redux-saga/index.html">
+<meta property="og:site_name" content="Sola&#39;s Blog">
+<meta property="og:description" content="在*saga*中，全局监听器和接收器使用*Generator*函数和*saga*自身的一些辅助函数实现对整个流程的管控 ...">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-28T09:32:32.000Z">
+<meta property="article:modified_time" content="2022-06-28T09:00:50.299Z">
+<meta property="article:author" content="Sola">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20redux-saga/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20redux-saga/","path":"2022/06/28/react/react扩展 redux-saga/","title":"redux-saga"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>redux-saga | Sola's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sola's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am superman~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags" rel="section"><i class="fa fa-calendar fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redux-saga"><span class="nav-number">1.</span> <span class="nav-text">redux-saga</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ES6-%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1.ES6 生成器函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-redux-saga%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2.redux-saga使用流程</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sola"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Sola</p>
+  <div class="site-description" itemprop="description">hello world</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sola-grj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sola-grj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5484887335" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5484887335" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1313562402&auto=1&height=66"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20redux-saga/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Sola">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sola's Blog">
+      <meta itemprop="description" content="hello world">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="redux-saga | Sola's Blog">
+      <meta itemprop="description" content="在*saga*中，全局监听器和接收器使用*Generator*函数和*saga*自身的一些辅助函数实现对整个流程的管控 ...">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          redux-saga
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-28 17:32:32 / 修改时间：17:00:50" itemprop="dateCreated datePublished" datetime="2022-06-28T17:32:32+08:00">2022-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react%E6%89%A9%E5%B1%95/" itemprop="url" rel="index"><span itemprop="name">react扩展</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">在*saga*中，全局监听器和接收器使用*Generator*函数和*saga*自身的一些辅助函数实现对整个流程的管控 ...</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><p>在<em>saga</em>中，全局监听器和接收器使用<em>Generator</em>函数和<em>saga</em>自身的一些辅助函数实现对整个流程的管控</p>
+<p>npm i redux-saga</p>
+<h3 id="1-ES6-生成器函数"><a href="#1-ES6-生成器函数" class="headerlink" title="1.ES6 生成器函数"></a>1.ES6 生成器函数</h3><p>基本使用：</p>
+<ul>
+<li>生成器函数正常执行，函数体内容不会被正常执行，需要通过next方法进行推进，每次执行一个next()方法，代码执行到一个yield，以此类推</li>
+<li>yield 后面的值，可以被next的返回值进行接收</li>
+<li>同样 next传递过去的参数，同样可以被yield的返回值进行接收</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> *<span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1111</span>);</span><br><span class="line">  <span class="keyword">var</span> input1 = <span class="keyword">yield</span> <span class="string">&quot;111-输出&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2222</span>,input1);</span><br><span class="line">  <span class="keyword">var</span> input2 = <span class="keyword">yield</span> <span class="string">&quot;222-输出&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3333</span>,input2);</span><br><span class="line">  <span class="keyword">var</span> input3 = <span class="keyword">yield</span> <span class="string">&quot;333-输出&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(input3)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span>  a = <span class="title function_">test</span>()</span><br><span class="line"><span class="keyword">var</span> res1 = a.<span class="title function_">next</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res1);</span><br><span class="line"><span class="keyword">var</span> res2 = a.<span class="title function_">next</span>(<span class="string">&#x27;bbb&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res2);</span><br><span class="line"><span class="keyword">var</span> res3 = a.<span class="title function_">next</span>(<span class="string">&#x27;ccc&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res3);</span><br><span class="line"><span class="keyword">var</span> res4 = a.<span class="title function_">next</span>(<span class="string">&#x27;ddd&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res4);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果为：</span></span><br><span class="line"><span class="number">1111</span></span><br><span class="line">&#123; <span class="attr">value</span>: <span class="string">&#x27;111-输出&#x27;</span>, <span class="attr">done</span>: <span class="literal">false</span> &#125;</span><br><span class="line"><span class="number">2222</span> bbb</span><br><span class="line">&#123; <span class="attr">value</span>: <span class="string">&#x27;222-输出&#x27;</span>, <span class="attr">done</span>: <span class="literal">false</span> &#125;</span><br><span class="line"><span class="number">3333</span> ccc</span><br><span class="line">&#123; <span class="attr">value</span>: <span class="string">&#x27;333-输出&#x27;</span>, <span class="attr">done</span>: <span class="literal">false</span> &#125;</span><br><span class="line">ddd</span><br><span class="line">&#123; <span class="attr">value</span>: <span class="literal">undefined</span>, <span class="attr">done</span>: <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>可执行生成器：</p>
+<p>需求：需要链式执行，方法一执行完成后，将返回值传递给方法二，方法二根据方法一的返回值再次执行成功后，将返回值传递给方法三，以此类推。（认证、登录等）</p>
+<p>案例解析：</p>
+<ul>
+<li>三个getDate方法均为异步方法，通过*gen生成器函数进行渲染，但是并未执行，在run方法中，将生成器函数作为参数传递进去，首先进行第一次的调用，并未执行next方法。</li>
+<li>通过递归的思想，以及 yield返回值中的done 布尔值，来进行判断，当前生成器函数是否执行完毕，一旦执行完毕，将最终结果进行返回，否则，始终进行next方法，直到done值为true（此案例中的result.value是一个Promise对象，需要通过.then方法，确保fullfilled，进行再次next）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getDate1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span>  <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">resolve</span>(<span class="string">&quot;data1&quot;</span>)</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getDate2</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span>  <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">resolve</span>(<span class="string">&quot;data2&quot;</span>)</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getDate3</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span>  <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">resolve</span>(<span class="string">&quot;data3&quot;</span>)</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> *<span class="title function_">gen</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> f1 = <span class="keyword">yield</span> <span class="title function_">getDate1</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(f1)</span><br><span class="line">  <span class="keyword">var</span> f2 = <span class="keyword">yield</span> <span class="title function_">getDate2</span>(f1);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(f2)</span><br><span class="line">  <span class="keyword">var</span> f3 = <span class="keyword">yield</span> <span class="title function_">getDate3</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(f3)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">run</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> g = <span class="title function_">fn</span>()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">next</span>(<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> result = g.<span class="title function_">next</span>(data)</span><br><span class="line">    <span class="keyword">if</span> (result.<span class="property">done</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> result.<span class="property">value</span></span><br><span class="line">    &#125;</span><br><span class="line">    result.<span class="property">value</span>.<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">next</span>(res)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">next</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">run</span>(gen)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-redux-saga使用流程"><a href="#2-redux-saga使用流程" class="headerlink" title="2.redux-saga使用流程"></a>2.redux-saga使用流程</h3><p>1.创建store.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createStore, combineReducers, applyMiddleware,compose&#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CityReducer</span> <span class="keyword">from</span> <span class="string">&quot;./reducers/CityReducer&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TabbarReducer</span> <span class="keyword">from</span> <span class="string">&quot;./reducers/TabbarReducer&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CinemaListReducer</span> <span class="keyword">from</span> <span class="string">&quot;./reducers/CinemaListReducer&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> reduxThunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span></span><br><span class="line"><span class="keyword">import</span> reduxPromise <span class="keyword">from</span> <span class="string">&#x27;redux-promise&#x27;</span></span><br><span class="line"><span class="keyword">import</span> createSagaMiddleWare <span class="keyword">from</span> <span class="string">&quot;redux-saga&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> watchSage <span class="keyword">from</span> <span class="string">&quot;./saga&quot;</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="title function_">combineReducers</span>(&#123;</span><br><span class="line">  <span class="title class_">CityReducer</span>,</span><br><span class="line">  <span class="title class_">TabbarReducer</span>,</span><br><span class="line">  <span class="title class_">CinemaListReducer</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> composeEnhancers = <span class="variable language_">window</span>.<span class="property">__REDUX_DEVTOOLS_EXTENSION_COMPOSE__</span> || compose;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sagaMiddleWare = <span class="title function_">createSagaMiddleWare</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(reducer, <span class="comment">/* preloadedState, */</span> <span class="title function_">composeEnhancers</span>(<span class="title function_">applyMiddleware</span>(reduxThunk,reduxPromise,sagaMiddleWare)))</span><br><span class="line"><span class="comment">// const store = createStore(reducer,applyMiddleware(reduxThunk,reduxPromise));</span></span><br><span class="line"></span><br><span class="line">sagaMiddleWare.<span class="title function_">run</span>(watchSage)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure>
+
+<p>2.saga.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;call, put, takeEvery&#125; <span class="keyword">from</span> <span class="string">&quot;redux-saga/effects&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> *<span class="title function_">watchSage</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="title function_">takeEvery</span>(<span class="string">&quot;get-cinemalist&quot;</span>,getCinemaList)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> *<span class="title function_">getCinemaList</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 异步处理</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// call 函数发送异步请求</span></span><br><span class="line">  <span class="keyword">let</span> res = <span class="keyword">yield</span> <span class="title function_">call</span>(getListAction) <span class="comment">// 阻塞的调用fn</span></span><br><span class="line">  <span class="comment">// put函数发出新的action 非阻塞的执行</span></span><br><span class="line">  <span class="keyword">yield</span> <span class="title function_">put</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>:<span class="string">&quot;change-cinemalist&quot;</span>,</span><br><span class="line">    <span class="attr">payload</span>:res</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getListAction</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">axios</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;https://m.maizuo.com/gateway?cityId=110100&amp;ticketFlag=1&amp;k=878555&#x27;</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123;</span><br><span class="line">      <span class="string">&#x27;X-Client-Info&#x27;</span>: <span class="string">&#x27;&#123;&quot;a&quot;: &quot;3000&quot;, &quot;ch&quot;: &quot;1002&quot;, &quot;v&quot;: &quot;5.2.0&quot;, &quot;e&quot;: &quot;1646462402616989231939585&quot;&#125;&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;X-Host&#x27;</span>: <span class="string">&#x27;mall.film-ticket.cinema.list&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">method</span>:<span class="string">&#x27;get&#x27;</span></span><br><span class="line">  &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="property">data</span>.<span class="property">data</span>.<span class="property">cinemas</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> watchSage</span><br></pre></td></tr></table></figure>
+
+<p>3.reducer.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">CinemaListReducer</span> = (<span class="params">prevState=&#123;</span></span><br><span class="line"><span class="params">  list:[]</span></span><br><span class="line"><span class="params">&#125;,action </span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> newState = &#123;...prevState&#125;</span><br><span class="line">  <span class="keyword">switch</span> (action.<span class="property">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;change-list&quot;</span>:</span><br><span class="line">      newState.<span class="property">list</span> = action.<span class="property">payload</span></span><br><span class="line">      <span class="keyword">return</span> newState</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;change-cinemalist&quot;</span>:</span><br><span class="line">      newState.<span class="property">list</span> = action.<span class="property">payload</span></span><br><span class="line">      <span class="keyword">return</span> newState</span><br><span class="line">    <span class="attr">default</span>:<span class="keyword">return</span> prevState</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">CinemaListReducer</span></span><br></pre></td></tr></table></figure>
+
+<p>4.派发action Cinema.js</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useEffect, useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&quot;../redux/store&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> getCinemaListAction <span class="keyword">from</span> <span class="string">&quot;../redux/actionCreator/getCinemaListAction&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Cinemas</span>(<span class="params">props</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [cityName,setcityName] = <span class="title function_">useState</span>(store.<span class="title function_">getState</span>().<span class="property">CityReducer</span>.<span class="property">cityName</span>)</span><br><span class="line">  <span class="keyword">const</span> [cinemaList,setCinemaList] = <span class="title function_">useState</span>(store.<span class="title function_">getState</span>().<span class="property">CinemaListReducer</span>.<span class="property">list</span>)</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (store.<span class="title function_">getState</span>().<span class="property">CinemaListReducer</span>.<span class="property">list</span>.<span class="property">length</span> == <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="comment">// 去后台取数据</span></span><br><span class="line">      store.<span class="title function_">dispatch</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&quot;get-cinemalist&quot;</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;store 缓存&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 订阅</span></span><br><span class="line">    <span class="keyword">var</span> unsubscribe = store.<span class="title function_">subscribe</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">setCinemaList</span>(store.<span class="title function_">getState</span>().<span class="property">CinemaListReducer</span>.<span class="property">list</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 取消订阅</span></span><br><span class="line">      <span class="title function_">unsubscribe</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,[])</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;overflow:</span>&quot;<span class="attr">hidden</span>&quot;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;float:</span>&#x27;<span class="attr">left</span>&#x27;&#125;&#125; <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">            props.history.push(&#x27;/city&#x27;)</span></span><br><span class="line"><span class="language-xml">          &#125;&#125;&gt;&#123;cityName&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">            props.history.push(&#x27;/cinemas/search&#x27;)</span></span><br><span class="line"><span class="language-xml">          &#125;&#125; style=&#123;&#123;float:&#x27;right&#x27;&#125;&#125;&gt;搜索<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;</span></span><br><span class="line"><span class="language-xml">            cinemaList.map(item =&gt;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">dl</span> <span class="attr">key</span>=<span class="string">&#123;item.cinemaId&#125;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;padding:</span>&quot;<span class="attr">10px</span>&quot;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">dd</span> <span class="attr">style</span>=<span class="string">&#123;&#123;fontSize:</span>&quot;<span class="attr">12px</span>&quot;,<span class="attr">color:</span>&quot;<span class="attr">gray</span>&quot;&#125;&#125;&gt;</span>&#123;item.address&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            )</span></span><br><span class="line"><span class="language-xml">          &#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/28/react/react%E6%89%A9%E5%B1%95%20styled-components/" rel="prev" title="styled-components">
+                  <i class="fa fa-chevron-left"></i> styled-components
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/28/react/react%E6%89%A9%E5%B1%95%20forwardRef/" rel="next" title="forwardRef">
+                  forwardRef <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sola</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

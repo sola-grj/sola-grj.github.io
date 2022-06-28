@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/1.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/1.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Umi，中文发音为「乌米」，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Umi">
+<meta property="og:url" content="http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20Umi/index.html">
+<meta property="og:site_name" content="Sola&#39;s Blog">
+<meta property="og:description" content="Umi，中文发音为「乌米」，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由...">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-28T09:32:32.000Z">
+<meta property="article:modified_time" content="2022-06-28T09:18:04.682Z">
+<meta property="article:author" content="Sola">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20Umi/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20Umi/","path":"2022/06/28/react/react扩展 Umi/","title":"Umi"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Umi | Sola's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sola's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am superman~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags" rel="section"><i class="fa fa-calendar fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Umi"><span class="nav-number">1.</span> <span class="nav-text">Umi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Umi%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">Umi简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">1.创建组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-redirect%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.3.</span> <span class="nav-text">2.redirect重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-404"><span class="nav-number">1.4.</span> <span class="nav-text">3.404</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.5.</span> <span class="nav-text">4.嵌套路由及重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%B7%AF%E7%94%B1%E6%A0%B9%E9%A1%B5%E9%9D%A2%E5%92%8C%E5%A3%B0%E6%98%8E%E5%BC%8F%E8%B7%AF%E7%94%B1%E5%AF%BC%E8%88%AA"><span class="nav-number">1.6.</span> <span class="nav-text">5.路由根页面和声明式路由导航</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E7%BC%96%E7%A8%8B%E5%BC%8F%E8%B7%AF%E7%94%B1%E5%AF%BC%E8%88%AA"><span class="nav-number">1.7.</span> <span class="nav-text">8.编程式路由导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA%E4%BC%A0%E5%8F%82%EF%BC%9A"><span class="nav-number">1.7.1.</span> <span class="nav-text">编程式导航传参：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E6%8B%A6%E6%88%AA"><span class="nav-number">1.8.</span> <span class="nav-text">路由拦截</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash%E6%A8%A1%E5%BC%8F%E4%B8%8Ebrowser%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.9.</span> <span class="nav-text">hash模式与browser模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock%E5%8F%8A%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">1.10.</span> <span class="nav-text">mock及反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#umi%E9%9B%86%E6%88%90%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="nav-number">1.11.</span> <span class="nav-text">umi集成组件库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dva%E9%9B%86%E6%88%90"><span class="nav-number">1.12.</span> <span class="nav-text">dva集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">1.12.1.</span> <span class="nav-text">同步获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">1.12.2.</span> <span class="nav-text">异步获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#umi%E4%B8%AD%E7%9A%84loading"><span class="nav-number">1.12.3.</span> <span class="nav-text">umi中的loading</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sola"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Sola</p>
+  <div class="site-description" itemprop="description">hello world</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sola-grj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sola-grj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5484887335" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5484887335" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1313562402&auto=1&height=66"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/28/react/react%E6%89%A9%E5%B1%95%20Umi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Sola">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sola's Blog">
+      <meta itemprop="description" content="hello world">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Umi | Sola's Blog">
+      <meta itemprop="description" content="Umi，中文发音为「乌米」，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由...">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Umi
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-28 17:32:32 / 修改时间：17:18:04" itemprop="dateCreated datePublished" datetime="2022-06-28T17:32:32+08:00">2022-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react%E6%89%A9%E5%B1%95/" itemprop="url" rel="index"><span itemprop="name">react扩展</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">Umi，中文发音为「乌米」，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由...</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Umi"><a href="#Umi" class="headerlink" title="Umi"></a>Umi</h2><h3 id="Umi简介"><a href="#Umi简介" class="headerlink" title="Umi简介"></a>Umi简介</h3><p>Umi，中文发音为「乌米」，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。然后配以生命周期完善的插件体系，覆盖从源码到构建产物的每个生命周期，支持各种功能扩展和业务需求。</p>
+<p>Umi 是蚂蚁集团的底层前端框架，已直接或间接地服务了 10000+ 应用，包括 Java、Node、H5 无线、离线（Hybrid）应用、纯前端 assets 应用、CMS 应用、Electron 应用、Serverless 应用等。他已经很好地服务了我们的内部用户，同时也服务了不少外部用户，包括淘系、飞猪、阿里云、字节、腾讯、口碑、美团等。在 2021 年字节的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/403206195">调研报告</a>中，Umi 是其中 25.33% 开发者的选择。</p>
+<p>Umi 有很多非常有意思的特性，比如。</p>
+<p>1、<strong>企业级</strong>，在安全性、稳定性、最佳实践、约束能力方面会考虑更多<br>2、<strong>插件化</strong>，啥都能改，Umi 本身也是由插件构成<br>3、<strong>MFSU</strong>，比 Vite 还快的 Webpack 打包方案<br>4、基于 React Router 6 的完备路由<br>5、默认最快的请求<br>6、SSR &amp; SSG<br>7、稳定白盒性能好的 ESLint 和 Jest<br>8、React 18 的框架级接入<br>9、Monorepo 最佳实践</p>
+<p>什么时候不用 Umi？</p>
+<p>如果你的项目，</p>
+<p>1、需要支持 IE 8 或更低版本的浏览器<br>2、需要支持 React 16.8.0 以下的 React<br>3、需要跑在 Node 14 以下的环境中<br>4、有很强的 webpack 自定义需求和主观意愿<br>5、需要选择不同的路由方案<br>…</p>
+<p>Umi 可能不适合你。</p>
+<p>为什么不是？</p>
+<p>create-react-app</p>
+<p>create-react-app 是脚手架，和 Umi、next.js、remix、ice、modern.js 等元框架不是同一类型。脚手架可以让我们快速启动项目，对于单一的项目够用，但对于团队而言却不够。因为使用脚手架像泼出去的水，一旦启动，无法迭代。同时脚手架所能做的封装和抽象都非常有限。</p>
+<p>next.js</p>
+<p>如果要做 SSR，next.js 是非常好的选择（当然，Umi 也支持 SSR）；而如果只做 CSR，Umi 会是更好的选择。相比之下，Umi 的扩展性会更好；并且 Umi 做了很多更贴地气的功能，比如配置式路由、补丁方案、antd 的接入、微前端、国际化、权限等；同时 Umi 会更稳定，因为他锁了能锁的全部依赖，定期主动更新，某一个子版本的 Umi，不会因为重装依赖之后而跑不起来。</p>
+<p>remix</p>
+<p>Remix 是我非常喜欢的框架，Umi 4 从中<del>抄</del>（学）了不少东西。但 Remix 是 Server 框架，其内置的 loader 和 action 都是跑在 server 端的，所以会对部署环境会有一定要求。Umi 将 loader、action 以及 remix 的请求机制同时运用到 client 和 server 侧，不仅 server 请求快，纯 CSR 的项目请求也可达到理论的最快值。同时 Remix 基于 esbuild 做打包，可能不适用于对兼容性有要求或者依赖尺寸特别大的项目。</p>
+<p>以上均摘自Umi官网，很有意思的介绍与对比。开整</p>
+<p>安装脚手架：</p>
+<ul>
+<li>mkdir myapp &amp;&amp; cd myapp //空目录</li>
+<li>npx @umijs/create-umi-app</li>
+</ul>
+<p>安装项目依赖：</p>
+<ul>
+<li>进入myapp，执行 npm install</li>
+</ul>
+<h3 id="1-创建组件"><a href="#1-创建组件" class="headerlink" title="1.创建组件"></a>1.创建组件</h3><ul>
+<li>在根目录下的pages目录下创建对应名字的组件即可</li>
+<li>例如：Film.tsx 此时在页面访问：<a target="_blank" rel="noopener" href="http://localhost:8000/film">http://localhost:8000/film</a> 即可访问到Film组件对应的内容。</li>
+</ul>
+<h3 id="2-redirect重定向"><a href="#2-redirect重定向" class="headerlink" title="2.redirect重定向"></a>2.redirect重定向</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Redirect</span>&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">index</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span>=<span class="string">&quot;/film&quot;</span>/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-404"><a href="#3-404" class="headerlink" title="3.404"></a>3.404</h3><p>创建pages/404.tsx 当没有匹配的路由的时候，会默认访问404.tsx的组件内容</p>
+<h3 id="4-嵌套路由及重定向"><a href="#4-嵌套路由及重定向" class="headerlink" title="4.嵌套路由及重定向"></a>4.嵌套路由及重定向</h3><p>目录层级如下：</p>
+<p>pages</p>
+<ul>
+<li>film<ul>
+<li>_layout.tsx</li>
+<li>Comingsoon.tsx</li>
+<li>Nowplaying.tsx</li>
+</ul>
+</li>
+</ul>
+<p>例如：pages下新建film文件夹，在film文件夹下创建**_layout.tsx** ,在该文件中编写Film组件对应的页面，在film文件夹下创建子路由组件ComingSoon组件、Nowplaying组件。在<code>_layout.tsx</code>中使用插槽的方式，去渲染二级路由（嵌套路由）</p>
+<p>此时，在嵌套路由的重定向，依然与一级路由的使用方式相同，同样是<Redirect to="/film/nowplaying" /></p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Redirect</span>,useLocation&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Film</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> location = <span class="title function_">useLocation</span>()</span><br><span class="line">  <span class="keyword">if</span> (location.<span class="property">pathname</span> === <span class="string">&quot;/film&quot;</span> || location.<span class="property">pathname</span> === <span class="string">&quot;/film/&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="language-xml"><span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span>=<span class="string">&quot;/film/nowplaying&quot;</span> /&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;background:</span>&quot;<span class="attr">yellow</span>&quot;,<span class="attr">height:</span>&quot;<span class="attr">200px</span>&quot;&#125;&#125;&gt;</span>大轮播<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;props.children&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-路由根页面和声明式路由导航"><a href="#5-路由根页面和声明式路由导航" class="headerlink" title="5.路由根页面和声明式路由导航"></a>5.路由根页面和声明式路由导航</h3><p>在项目根目录下创建layouts目录，目录下创建index.tsx为路由的根页面，通过<code>props.children</code>插槽方式来渲染其他已经渲染好的路由组件。如下：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">NavLink</span>&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"><span class="keyword">import</span><span class="string">&#x27;./index.less&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">IndexLayout</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (props.<span class="property">location</span>.<span class="property">pathname</span> === <span class="string">&quot;/city&quot;</span> ||  props.<span class="property">location</span>.<span class="property">pathname</span>.<span class="title function_">includes</span>(<span class="string">&quot;/detail&quot;</span>))&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;props.children&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/film&quot;</span> <span class="attr">activeClassName</span>=<span class="string">&quot;active&quot;</span>&gt;</span>film<span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/cinema&quot;</span> <span class="attr">activeClassName</span>=<span class="string">&quot;active&quot;</span>&gt;</span>cinema<span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/center&quot;</span> <span class="attr">activeClassName</span>=<span class="string">&quot;active&quot;</span>&gt;</span>center<span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-编程式路由导航"><a href="#8-编程式路由导航" class="headerlink" title="8.编程式路由导航"></a>8.编程式路由导航</h3><p>umi中的编程式路由导航与react-router中的相同，无差异</p>
+<ol>
+<li>props.history.push(“/home”)</li>
+<li>使用useHistory hook，history.push(“/home”)</li>
+</ol>
+<h4 id="编程式导航传参："><a href="#编程式导航传参：" class="headerlink" title="编程式导航传参："></a>编程式导航传参：</h4><p>目录结构如下 ：</p>
+<p>pages</p>
+<ul>
+<li>detail<ul>
+<li>[id].tsx</li>
+</ul>
+</li>
+</ul>
+<p>pages下创建detail目录，detail目录下创建<code>[id].tsx</code> 在该tsx文件下通过props或者useParams来获取参数信息</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [id].tsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useParams&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">IParams</span> &#123;</span><br><span class="line">  <span class="attr">id</span>:<span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Detail</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> params = useParams&lt;<span class="title class_">IParams</span>&gt;()</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      Detail - &#123;params.id&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由拦截"><a href="#路由拦截" class="headerlink" title="路由拦截"></a>路由拦截</h3><p>目录解构如下：</p>
+<p>src</p>
+<ul>
+<li>wrappers<ul>
+<li>auth.tsx</li>
+</ul>
+</li>
+</ul>
+<p>在项目根目录下的src目录下创建wrappers文件夹，该文件夹下创建<code>auth.tsx</code>，在需要校验的Center组件下，写下如下代码<code>Center.wrappers = [&quot;@/wrappers/Auth&quot;]</code> 对Center组件进行包装，实际上，此时的Auth组件相当于是Center组件的父组件</p>
+<p>auth.tsx</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Redirect</span>&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Auth</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;token&quot;</span>))&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;props.children&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span>=<span class="string">&quot;/login&quot;</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Center.tsx</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Center</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      center</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Center</span>.<span class="property">wrappers</span> = [<span class="string">&quot;@/wrappers/Auth&quot;</span>]</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Center</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="hash模式与browser模式"><a href="#hash模式与browser模式" class="headerlink" title="hash模式与browser模式"></a>hash模式与browser模式</h3><ul>
+<li><p>.umirc.js下添加 history属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">history</span>:&#123;</span><br><span class="line">  <span class="attr">type</span>:<span class="string">&quot;hash&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="mock及反向代理"><a href="#mock及反向代理" class="headerlink" title="mock及反向代理"></a>mock及反向代理</h3><ul>
+<li><p>在mock目录下创建api.tsx即可，里面写好对应的GET或者POST</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="string">&quot;GET /users&quot;</span>:&#123;<span class="attr">name</span>:<span class="string">&quot;sola&quot;</span>,<span class="attr">age</span>:<span class="number">100</span>&#125;,</span><br><span class="line">  <span class="string">&quot;POST /users/login&quot;</span>:<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">body</span>);</span><br><span class="line">    res.<span class="title function_">send</span>(&#123;</span><br><span class="line">      <span class="attr">ok</span>:<span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>反向代理：umirc.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">proxy</span>:&#123;</span><br><span class="line">  <span class="string">&quot;/api&quot;</span>:&#123;</span><br><span class="line">    <span class="attr">target</span>:<span class="string">&quot;https://i.maoyan.com&quot;</span>,</span><br><span class="line">    <span class="attr">changeOrigin</span>:<span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="umi集成组件库"><a href="#umi集成组件库" class="headerlink" title="umi集成组件库"></a>umi集成组件库</h3><p>当umi自带antd组件库版本过低时，需要重新安装antd最新版，但是同时要关闭umi自身携带的antd，在umirc.js下添加</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">antd</span>:&#123;</span><br><span class="line">  <span class="attr">mobile</span>:<span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="dva集成"><a href="#dva集成" class="headerlink" title="dva集成"></a>dva集成</h3><ul>
+<li>按目录约定注册 model，无需手动 app.model</li>
+<li>文件名即 namespace，可以省去 model 导出的 namespace key</li>
+<li>无需手写 router.js，交给 umi 处理，支持 model 和component 的按需加载</li>
+<li>内置 query-string 处理，无需再手动解码和编码</li>
+<li>内置 dva-loading 和 dva-immer，其中 dva-immer需通过配开启(简化 reducer 编写)</li>
+</ul>
+<h4 id="同步获取数据"><a href="#同步获取数据" class="headerlink" title="同步获取数据"></a>同步获取数据</h4><p>业务场景：在City组件中点击不同的城市，将城市信息（名称、ID）传递到Cinema组件</p>
+<p>目录结构如下：</p>
+<p>src</p>
+<ul>
+<li>models<ul>
+<li>CityModel.ts</li>
+</ul>
+</li>
+</ul>
+<p>1.src下新建models目录，在目录下创建CityModel.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespace</span>:<span class="string">&quot;city&quot;</span>, <span class="comment">// 命名空间</span></span><br><span class="line">  state : &#123;</span><br><span class="line">    <span class="attr">cityName</span>:<span class="string">&quot;北京&quot;</span>,</span><br><span class="line">    <span class="attr">cityId</span>:<span class="string">&quot;110100&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">reducers</span>:&#123;</span><br><span class="line">    <span class="title function_">changeCity</span>(<span class="params">prevState:<span class="built_in">any</span>,action:<span class="built_in">any</span></span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(action);</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...prevState,</span><br><span class="line">        <span class="attr">cityName</span>: action.<span class="property">payload</span>.<span class="property">cityName</span>,</span><br><span class="line">        <span class="attr">cityId</span>: action.<span class="property">payload</span>.<span class="property">cityId</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.通过connect组件将City组件封装成高阶组件，通过dispatch方法派发action</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useEffect, useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">IndexBar</span>,<span class="title class_">List</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;antd-mobile&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;useHistory,connect&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">City</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> history = <span class="title function_">useHistory</span>()</span><br><span class="line">  <span class="keyword">const</span> [list,setList] = useState&lt;<span class="built_in">any</span>&gt;([])</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">filterCity</span> = (<span class="params">cities:<span class="built_in">any</span></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="attr">letterArr</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt; = []</span><br><span class="line">    <span class="keyword">const</span> newList = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">65</span>; i &lt; <span class="number">91</span>; i++) &#123;</span><br><span class="line">      letterArr.<span class="title function_">push</span>(<span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(i))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> m <span class="keyword">in</span> letterArr) &#123;</span><br><span class="line">      <span class="keyword">var</span> cityItems = cities.<span class="title function_">filter</span>(<span class="function">(<span class="params">item:<span class="built_in">any</span></span>) =&gt;</span></span><br><span class="line">        item.<span class="property">pinyin</span>.<span class="title function_">substring</span>(<span class="number">0</span>,<span class="number">1</span>).<span class="title function_">toUpperCase</span>() === letterArr[m]</span><br><span class="line">      )</span><br><span class="line">      cityItems.<span class="property">length</span> &amp;&amp; newList.<span class="title function_">push</span>(&#123;</span><br><span class="line">        <span class="attr">title</span>:letterArr[m],</span><br><span class="line">        <span class="attr">items</span>:cityItems</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newList</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">fetch</span>(<span class="string">&quot;https://m.maizuo.com/gateway?k=5490218&quot;</span>, &#123;</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&quot;X-Client-Info&quot;</span>: <span class="string">&#x27;&#123;&quot;a&quot;:&quot;3000&quot;,&quot;ch&quot;:&quot;1002&quot;,&quot;v&quot;:&quot;5.2.0&quot;,&quot;e&quot;:&quot;1651225177596601022185473&quot;&#125;&#x27;</span>,</span><br><span class="line">        <span class="string">&quot;X-Host&quot;</span>: <span class="string">&#x27;mall.film-ticket.city.list&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span>  =&gt;</span> res.<span class="title function_">json</span>()).<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">setList</span>(<span class="title function_">filterCity</span>(res.<span class="property">data</span>.<span class="property">cities</span>))</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">changeCity</span> = (<span class="params">item:<span class="built_in">any</span></span>) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 修改state中的状态</span></span><br><span class="line">    props.<span class="title function_">dispatch</span>(&#123;</span><br><span class="line">      <span class="attr">type</span>:<span class="string">&quot;city/changeCity&quot;</span>,</span><br><span class="line">      <span class="attr">payload</span>:&#123;</span><br><span class="line">        <span class="attr">cityName</span>:item.<span class="property">name</span>,</span><br><span class="line">        <span class="attr">cityId</span>:item.<span class="property">cityId</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    history.<span class="title function_">push</span>(<span class="string">&quot;/cinema&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">height:</span> <span class="attr">window.innerHeight</span> &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">IndexBar</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;list.map((group:any) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">          const &#123; title, items &#125; = group</span></span><br><span class="line"><span class="language-xml">          return (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">IndexBar.Panel</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">index</span>=<span class="string">&#123;title&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">title</span>=<span class="string">&#123;title&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">key</span>=<span class="string">&#123;title&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            &gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">List</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;items.map((item:any, index:number) =&gt; (</span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">List.Item</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> changeCity(item)&#125; key=&#123;index&#125;&gt;&#123;item.name&#125;<span class="tag">&lt;/<span class="name">List.Item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                ))&#125;</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">List</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">IndexBar.Panel</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          )</span></span><br><span class="line"><span class="language-xml">        &#125;)&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">IndexBar</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(<span class="function">() =&gt;</span>(&#123;&#125;))(<span class="title class_">City</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3.通过reducer来接收City组件派发过来的数据，并更新state，Cinema组件获取redux中的数据进行页面渲染</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">NavBar</span>,<span class="title class_">DotLoading</span>&#125; <span class="keyword">from</span> <span class="string">&quot;antd-mobile&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useHistory&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">SearchOutline</span>&#125; <span class="keyword">from</span> <span class="string">&quot;antd-mobile-icons&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Cinema</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> history = <span class="title function_">useHistory</span>()</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (props.<span class="property">list</span>.<span class="property">length</span> === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// 取数据</span></span><br><span class="line">        props.<span class="title function_">dispatch</span>(&#123;</span><br><span class="line">          <span class="attr">type</span>:<span class="string">&quot;cinema/getList&quot;</span>,</span><br><span class="line">          <span class="attr">payload</span>:&#123;</span><br><span class="line">            <span class="attr">cityId</span>: props.<span class="property">cityId</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;缓存&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,[])</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(props);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">NavBar</span> <span class="attr">onBack</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">        props.dispatch(&#123;</span></span><br><span class="line"><span class="language-xml">          type:&quot;cinema/clearList&quot;</span></span><br><span class="line"><span class="language-xml">        &#125;)</span></span><br><span class="line"><span class="language-xml">        history.push(&quot;/city&quot;)</span></span><br><span class="line"><span class="language-xml">      &#125;&#125; back=&#123;props.cityName&#125; backArrow=&#123;false&#125; right=&#123;<span class="tag">&lt;<span class="name">SearchOutline</span>/&gt;</span>&#125;&gt;标题<span class="tag">&lt;/<span class="name">NavBar</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      &#123;</span></span><br><span class="line"><span class="language-xml">        props.loading &amp;&amp; <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;fontSize:14,textAlign:</span>&quot;<span class="attr">center</span>&quot;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">DotLoading</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;</span></span><br><span class="line"><span class="language-xml">          props.list.map((item:any) =&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.cinemaId&#125;</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          )</span></span><br><span class="line"><span class="language-xml">        &#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(<span class="function">(<span class="params">state:<span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(state);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">a</span>:<span class="number">1</span>,</span><br><span class="line">    <span class="attr">loading</span>:state.<span class="property">loading</span>.<span class="property">global</span>,</span><br><span class="line">    <span class="attr">cityName</span>:state.<span class="property">city</span>.<span class="property">cityName</span>,</span><br><span class="line">    <span class="attr">cityId</span>:state.<span class="property">city</span>.<span class="property">cityId</span>,</span><br><span class="line">    <span class="attr">list</span>:state.<span class="property">cinema</span>.<span class="property">list</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="title class_">Cinema</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="异步获取数据"><a href="#异步获取数据" class="headerlink" title="异步获取数据"></a>异步获取数据</h4><p>业务场景：获取各城市影院数据信息展示到Cinema组件中，第一次正常发请求进行获取，后续再次访问时，走缓存。</p>
+<p>首先在src/models 下创建CinemaModel.ts,实现异步获取影院数据的方法，此时与dva 的获取方式相同，通过effects副作用函数来进行异步转同步：call方法解决异步，put方法将异步获取的数据派发到reducers，reducers中进行同步处理，更新state，进行页面渲染</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespace</span>:<span class="string">&quot;cinema&quot;</span>,</span><br><span class="line">  <span class="attr">state</span>:&#123;</span><br><span class="line">    <span class="attr">list</span>:[]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">reducers</span>:&#123;</span><br><span class="line">    <span class="title function_">changeList</span>(<span class="params">prevState:<span class="built_in">any</span>,action:<span class="built_in">any</span></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...prevState,</span><br><span class="line">        <span class="attr">list</span>: action.<span class="property">payload</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">clearList</span>(<span class="params">prevState:<span class="built_in">any</span>,action:<span class="built_in">any</span></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...prevState,</span><br><span class="line">        <span class="attr">list</span>:[]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">effects</span>:&#123;</span><br><span class="line">    *<span class="title function_">getList</span>(<span class="attr">action</span>:<span class="built_in">any</span>,<span class="attr">obj</span>:<span class="built_in">any</span>):<span class="built_in">any</span>&#123;</span><br><span class="line">      <span class="keyword">const</span> &#123;put,call&#125; = obj</span><br><span class="line">      <span class="keyword">var</span> res = <span class="keyword">yield</span> <span class="title function_">call</span>(getListForCinema,action.<span class="property">payload</span>.<span class="property">cityId</span>)</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">yield</span> <span class="title function_">put</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&quot;changeList&quot;</span>,</span><br><span class="line">        <span class="attr">payload</span>:res</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getListForCinema</span>(<span class="params">cityId:<span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(cityId);</span><br><span class="line">  <span class="keyword">var</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`https://m.maizuo.com/gateway?cityId=<span class="subst">$&#123;cityId&#125;</span>&amp;ticketFlag=1&amp;k=878555`</span>,&#123;</span><br><span class="line">    <span class="attr">headers</span>: &#123;</span><br><span class="line">      <span class="string">&#x27;X-Client-Info&#x27;</span>: <span class="string">&#x27;&#123;&quot;a&quot;: &quot;3000&quot;, &quot;ch&quot;: &quot;1002&quot;, &quot;v&quot;: &quot;5.2.0&quot;, &quot;e&quot;: &quot;1646462402616989231939585&quot;&#125;&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;X-Host&#x27;</span>: <span class="string">&#x27;mall.film-ticket.cinema.list&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> res.<span class="title function_">json</span>())</span><br><span class="line">  <span class="keyword">return</span> res.<span class="property">data</span>.<span class="property">cinemas</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Cinema.tsx</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;useEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">NavBar</span>,<span class="title class_">DotLoading</span>&#125; <span class="keyword">from</span> <span class="string">&quot;antd-mobile&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useHistory&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123;connect&#125; <span class="keyword">from</span> <span class="string">&quot;umi&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">SearchOutline</span>&#125; <span class="keyword">from</span> <span class="string">&quot;antd-mobile-icons&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Cinema</span>(<span class="params">props:<span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> history = <span class="title function_">useHistory</span>()</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (props.<span class="property">list</span>.<span class="property">length</span> === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// 取数据</span></span><br><span class="line">        props.<span class="title function_">dispatch</span>(&#123;</span><br><span class="line">          <span class="attr">type</span>:<span class="string">&quot;cinema/getList&quot;</span>,</span><br><span class="line">          <span class="attr">payload</span>:&#123;</span><br><span class="line">            <span class="attr">cityId</span>: props.<span class="property">cityId</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;缓存&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,[])</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(props);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">NavBar</span> <span class="attr">onBack</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">        props.dispatch(&#123;</span></span><br><span class="line"><span class="language-xml">          type:&quot;cinema/clearList&quot;</span></span><br><span class="line"><span class="language-xml">        &#125;)</span></span><br><span class="line"><span class="language-xml">        history.push(&quot;/city&quot;)</span></span><br><span class="line"><span class="language-xml">      &#125;&#125; back=&#123;props.cityName&#125; backArrow=&#123;false&#125; right=&#123;<span class="tag">&lt;<span class="name">SearchOutline</span>/&gt;</span>&#125;&gt;标题<span class="tag">&lt;/<span class="name">NavBar</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      &#123;</span></span><br><span class="line"><span class="language-xml">        props.loading &amp;&amp; <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;fontSize:14,textAlign:</span>&quot;<span class="attr">center</span>&quot;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">DotLoading</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;</span></span><br><span class="line"><span class="language-xml">          props.list.map((item:any) =&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.cinemaId&#125;</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          )</span></span><br><span class="line"><span class="language-xml">        &#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(<span class="function">(<span class="params">state:<span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(state);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">a</span>:<span class="number">1</span>,</span><br><span class="line">    <span class="attr">loading</span>:state.<span class="property">loading</span>.<span class="property">global</span>,</span><br><span class="line">    <span class="attr">cityName</span>:state.<span class="property">city</span>.<span class="property">cityName</span>,</span><br><span class="line">    <span class="attr">cityId</span>:state.<span class="property">city</span>.<span class="property">cityId</span>,</span><br><span class="line">    <span class="attr">list</span>:state.<span class="property">cinema</span>.<span class="property">list</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="title class_">Cinema</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="umi中的loading"><a href="#umi中的loading" class="headerlink" title="umi中的loading"></a>umi中的loading</h4><p>umi中的loading是通过connect组件封装后的state参数中获取的，它可以判断在异步处理的时候，副作用函数effects的执行状态，在数据没有返回之前，loading 是false，数据返回后则是true，可以用过它来进行页面的优化，从而提升用户体验</p>
+<p>具体代码见dva异步获取数据中的Cinema组件。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/28/react/react%E6%89%A9%E5%B1%95%20flux%E4%B8%8Eredux%E4%B8%8Ereact-redux/" rel="prev" title="flux与redux与react-redux">
+                  <i class="fa fa-chevron-left"></i> flux与redux与react-redux
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/28/react/react%E6%89%A9%E5%B1%95%20TypeScript/" rel="next" title="TypeScript">
+                  TypeScript <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sola</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/1.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/1.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="React Router 保持 UI 与 URL 同步。它拥有简单的 API 与强大的功能例如代码缓冲加载、动态路由匹配、以及建立正确的位置过渡处理。你第一个念头想到的应该是 URL，而不是事后再想起。 ...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react——路由(V5)">
+<meta property="og:url" content="http://example.com/2022/06/20/react/react%E8%B7%AF%E7%94%B1-V6/index.html">
+<meta property="og:site_name" content="Sola&#39;s Blog">
+<meta property="og:description" content="React Router 保持 UI 与 URL 同步。它拥有简单的 API 与强大的功能例如代码缓冲加载、动态路由匹配、以及建立正确的位置过渡处理。你第一个念头想到的应该是 URL，而不是事后再想起。 ...">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-20T09:32:32.000Z">
+<meta property="article:modified_time" content="2022-06-22T03:57:02.627Z">
+<meta property="article:author" content="Sola">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/06/20/react/react%E8%B7%AF%E7%94%B1-V6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/20/react/react%E8%B7%AF%E7%94%B1-V6/","path":"2022/06/20/react/react路由-V6/","title":"react——路由(V5)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>react——路由(V5) | Sola's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sola's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am superman~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags" rel="section"><i class="fa fa-calendar fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">React路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%BE%97%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">路由得基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6%E5%92%8C%E4%B8%80%E8%88%AC%E7%BB%84%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">路由组件和一般组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NavLink%E4%B8%8E%E5%B0%81%E8%A3%85NavLink"><span class="nav-number">1.3.</span> <span class="nav-text">NavLink与封装NavLink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Switch"><span class="nav-number">1.4.</span> <span class="nav-text">Switch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E5%88%B7%E6%96%B0%E9%A1%B5%E9%9D%A2%E5%A4%AE%E8%A7%86%E4%B8%A2%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.</span> <span class="nav-text">解决多级路径刷新页面央视丢失的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E7%9A%84%E4%B8%A5%E6%A0%BC%E5%8C%B9%E9%85%8D%E4%B8%8E%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D"><span class="nav-number">1.6.</span> <span class="nav-text">路由的严格匹配与模糊匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redirect%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.7.</span> <span class="nav-text">Redirect的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1"><span class="nav-number">1.8.</span> <span class="nav-text">嵌套路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%91%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="nav-number">1.9.</span> <span class="nav-text">向路由组件传递参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-params%E5%8F%82%E6%95%B0"><span class="nav-number">1.9.1.</span> <span class="nav-text">1.params参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-search%E5%8F%82%E6%95%B0"><span class="nav-number">1.9.2.</span> <span class="nav-text">2.search参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-state%E5%8F%82%E6%95%B0"><span class="nav-number">1.9.3.</span> <span class="nav-text">3.state参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E5%BC%8F%E8%B7%AF%E7%94%B1%E5%AF%BC%E8%88%AA"><span class="nav-number">1.10.</span> <span class="nav-text">编程式路由导航</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#withRouter"><span class="nav-number">1.11.</span> <span class="nav-text">withRouter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BrowserRouter%E4%B8%8EHashRouter"><span class="nav-number">1.12.</span> <span class="nav-text">BrowserRouter与HashRouter</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sola"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Sola</p>
+  <div class="site-description" itemprop="description">hello world</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sola-grj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sola-grj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5484887335" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5484887335" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1313562402&auto=1&height=66"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/20/react/react%E8%B7%AF%E7%94%B1-V6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Sola">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sola's Blog">
+      <meta itemprop="description" content="hello world">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="react——路由(V5) | Sola's Blog">
+      <meta itemprop="description" content="React Router 保持 UI 与 URL 同步。它拥有简单的 API 与强大的功能例如代码缓冲加载、动态路由匹配、以及建立正确的位置过渡处理。你第一个念头想到的应该是 URL，而不是事后再想起。 ...">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react——路由(V5)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-20 17:32:32" itemprop="dateCreated datePublished" datetime="2022-06-20T17:32:32+08:00">2022-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-22 11:57:02" itemprop="dateModified" datetime="2022-06-22T11:57:02+08:00">2022-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">React Router 保持 UI 与 URL 同步。它拥有简单的 API 与强大的功能例如代码缓冲加载、动态路由匹配、以及建立正确的位置过渡处理。你第一个念头想到的应该是 URL，而不是事后再想起。 ...</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="React路由"><a href="#React路由" class="headerlink" title="React路由"></a>React路由</h2><p>React Router 是完整的 React 路由解决方案</p>
+<p>React Router 保持 UI 与 URL 同步。它拥有简单的 API 与强大的功能例如代码缓冲加载、动态路由匹配、以及建立正确的位置过渡处理。你第一个念头想到的应该是 URL，而不是事后再想起。</p>
+<h3 id="路由得基本使用"><a href="#路由得基本使用" class="headerlink" title="路由得基本使用"></a>路由得基本使用</h3><ol>
+<li>明确好界面中的导航区、展示区</li>
+<li>导航区的a标签改为Link标签：**<Link to="/home">Demo</Link>**</li>
+<li>展示区写Route标签进行路径的匹配 <strong><Route path='/home' component={Home}/></strong></li>
+<li><App/>的最外侧包裹了一个<BrowserRouter>或<HashRouter></li>
+</ol>
+<h3 id="路由组件和一般组件"><a href="#路由组件和一般组件" class="headerlink" title="路由组件和一般组件"></a>路由组件和一般组件</h3><ol>
+<li><p>写法不同</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一般组件</span></span><br><span class="line">&lt;<span class="title class_">Demo</span>/&gt;</span><br><span class="line"><span class="comment">// 路由组件</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/demo&quot;</span> <span class="attr">component</span>=<span class="string">&#123;Demo&#125;/</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>存放位置不同</p>
+</li>
+</ol>
+<ul>
+<li>一般组件：components</li>
+<li>路由组件：pages</li>
+</ul>
+<ol start="3">
+<li>接收到的props不同</li>
+</ol>
+<ul>
+<li><p>一般组件：写组件标签时传递了什么，就能收到什么</p>
+</li>
+<li><p>路由组件：接收三个固定的属性</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">history</span>:</span><br><span class="line">    <span class="attr">go</span>:f <span class="title function_">go</span>(n)</span><br><span class="line">    <span class="attr">goBack</span>:f <span class="title function_">goBack</span>()</span><br><span class="line">    <span class="attr">goFward</span>:f <span class="title function_">goFoward</span>()</span><br><span class="line">    <span class="attr">push</span>:f <span class="title function_">push</span>(path,state)</span><br><span class="line">    <span class="attr">replace</span>:f <span class="title function_">replace</span>(path,state)</span><br><span class="line"><span class="attr">location</span>:</span><br><span class="line">    <span class="attr">pathname</span>:<span class="string">&quot;/about&quot;</span></span><br><span class="line">    <span class="attr">search</span>:<span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">state</span>:<span class="literal">undefined</span></span><br><span class="line"><span class="attr">match</span>:</span><br><span class="line">    <span class="attr">params</span>:&#123;&#125;</span><br><span class="line">    <span class="attr">path</span>:<span class="string">&quot;/about&quot;</span></span><br><span class="line">    <span class="attr">url</span>:<span class="string">&quot;/about&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="NavLink与封装NavLink"><a href="#NavLink与封装NavLink" class="headerlink" title="NavLink与封装NavLink"></a>NavLink与封装NavLink</h3><ul>
+<li><p>动态给路由标签添加属性，默认是active，NavLink可以实现路由链接的高亮，通过activeClassName指定样式名字</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">NavLink</span> activeClassName=<span class="string">&quot;active&quot;</span> className=<span class="string">&quot;list-group-item&quot;</span> to=<span class="string">&quot;/about&quot;</span>&gt;<span class="title class_">About</span>&lt;/<span class="title class_">NavLink</span>&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>标签体内容是一个特殊的标签属性</p>
+</li>
+<li><p>通过 this.props.children可以获取标签体内容</p>
+</li>
+</ul>
+<h3 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h3><ul>
+<li><p>通常情况下，path和component是一一对应的关系，Switch可以提高路由匹配率（单一匹配）</p>
+</li>
+<li><p>在注册路由的时候，将Route使用Switch包裹起来，路由从上至下匹配到第一个就不会继续向下匹配了</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Switch</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/about&quot;</span> <span class="attr">component</span>=<span class="string">&#123;About&#125;/</span>&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/home&quot;</span> <span class="attr">component</span>=<span class="string">&#123;Home&#125;/</span>&gt;</span></span></span><br><span class="line">    &#123;<span class="comment">/*Test组件不会展示*/</span>&#125;</span><br><span class="line">  &lt;<span class="title class_">Route</span> path=<span class="string">&quot;/home&quot;</span> component=&#123;<span class="title class_">Test</span>&#125;/&gt;</span><br><span class="line">&lt;/<span class="title class_">Switch</span>&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="解决多级路径刷新页面央视丢失的问题"><a href="#解决多级路径刷新页面央视丢失的问题" class="headerlink" title="解决多级路径刷新页面央视丢失的问题"></a>解决多级路径刷新页面央视丢失的问题</h3><ol>
+<li>public/index.html 中引入样式时不写 <strong>./<strong>写</strong>/</strong>  (常用)</li>
+<li>public/index.html 中引入样式时不写 <strong>./</strong> 写%PUBBLIC_URL%(常用)</li>
+<li>使用HashRouter</li>
+</ol>
+<h3 id="路由的严格匹配与模糊匹配"><a href="#路由的严格匹配与模糊匹配" class="headerlink" title="路由的严格匹配与模糊匹配"></a>路由的严格匹配与模糊匹配</h3><ol>
+<li>默认使用的时模糊匹配：输入的路径必须包含要匹配的路径，且顺序要一致</li>
+<li>开启严格匹配：<Route  exact path="/sola/about" component={About}/></li>
+<li>严格匹配不要随便开启，需要再开，有时候会导致无法继续匹配二级路由</li>
+</ol>
+<h3 id="Redirect的使用"><a href="#Redirect的使用" class="headerlink" title="Redirect的使用"></a>Redirect的使用</h3><ol>
+<li><p>一般写在所有路由的最下方，当所有路由都无法匹配的时候，跳转到Redirect指定的路由</p>
+</li>
+<li><p>具体编码</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Switch</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span>   <span class="attr">path</span>=<span class="string">&quot;/sola/about&quot;</span> <span class="attr">component</span>=<span class="string">&#123;About&#125;/</span>&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span>  <span class="attr">path</span>=<span class="string">&quot;/sola/home&quot;</span> <span class="attr">component</span>=<span class="string">&#123;Home&#125;/</span>&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span>=<span class="string">&quot;/sola/about&quot;</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Switch</span>&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h3><ol>
+<li>注册子路由时要写上父路由的path值</li>
+<li>路由的匹配是按照路由的注册顺序进行的</li>
+</ol>
+<h3 id="向路由组件传递参数"><a href="#向路由组件传递参数" class="headerlink" title="向路由组件传递参数"></a>向路由组件传递参数</h3><h4 id="1-params参数"><a href="#1-params参数" class="headerlink" title="1.params参数"></a>1.params参数</h4><ol>
+<li><p>路由链接（携带参数）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Link</span> to=&#123;<span class="string">`/home/message/detail/<span class="subst">$&#123;messageObj.id&#125;</span>/<span class="subst">$&#123;messageObj.title&#125;</span>`</span>&#125;&gt;&#123;messageObj.<span class="property">title</span>&#125;&lt;/<span class="title class_">Link</span>&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>注册路由（声明接收）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span>   path=<span class="string">&quot;/home/message/detail/:id/:title&quot;</span> component=&#123;<span class="title class_">Detail</span>&#125; /&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>接收参数</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;id,title&#125; = <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">match</span>.<span class="property">params</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2-search参数"><a href="#2-search参数" class="headerlink" title="2.search参数"></a>2.search参数</h4><ol>
+<li><p>路由链接（携带参数）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Link</span> to=&#123;<span class="string">`/home/message/detail/?id=<span class="subst">$&#123;messageObj.id&#125;</span>&amp;title=<span class="subst">$&#123;messageObj.title&#125;</span>`</span>&#125;&gt;&#123;messageObj.<span class="property">title</span>&#125;&lt;/<span class="title class_">Link</span>&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>注册路由（无需声明、正常注册即可）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span>   path=<span class="string">&quot;/home/message/detail&quot;</span> component=&#123;<span class="title class_">Detail</span>&#125; /&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>接收参数</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">&#x27;querystring&#x27;</span></span><br><span class="line"><span class="comment">// 接收search参数</span></span><br><span class="line"><span class="keyword">const</span> &#123;search&#125; = <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">location</span></span><br><span class="line"><span class="keyword">const</span>  &#123;id,title&#125; = qs.<span class="title function_">parse</span>(search.<span class="title function_">slice</span>(<span class="number">1</span>))</span><br></pre></td></tr></table></figure></li>
+<li><p>备注：获取到的search是urlencoded编码字符串，需要借助querystring解析</p>
+</li>
+</ol>
+<h4 id="3-state参数"><a href="#3-state参数" class="headerlink" title="3.state参数"></a>3.state参数</h4><ol>
+<li><p>路由链接（携带参数）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Link</span> to=&#123;&#123;</span><br><span class="line">  <span class="attr">pathname</span>: <span class="string">&#x27;/home/message/detail&#x27;</span>,</span><br><span class="line">  <span class="attr">state</span>: &#123;<span class="attr">id</span>: messageObj.<span class="property">id</span>, <span class="attr">title</span>: messageObj.<span class="property">title</span>&#125;</span><br><span class="line">&#125;&#125;&gt;&#123;messageObj.<span class="property">title</span>&#125;&lt;/<span class="title class_">Link</span>&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>注册路由（无需声明、正常注册即可）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span>   path=<span class="string">&quot;/home/message/detail&quot;</span> component=&#123;<span class="title class_">Detail</span>&#125; /&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>接收参数</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;id,title&#125; = <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">location</span>.<span class="property">state</span> || &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>备注：刷新也可以保留住参数</p>
+</li>
+</ol>
+<h3 id="编程式路由导航"><a href="#编程式路由导航" class="headerlink" title="编程式路由导航"></a>编程式路由导航</h3><ul>
+<li>借助this.props.history对象上的API，对路由进行跳转、前进、后退</li>
+<li>this.props.history.push()</li>
+<li>this.props.history.replace()</li>
+<li>this.props.history.goBack()</li>
+<li>this.props.history.goFoward()</li>
+<li>this.props.history.go()</li>
+</ul>
+<h3 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h3><ul>
+<li><p>可以加工一般组件，让一般组件具备路由组件所特有的API，返回值是一个新组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;withRouter&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">withRouter</span>(<span class="title class_">Header</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="BrowserRouter与HashRouter"><a href="#BrowserRouter与HashRouter" class="headerlink" title="BrowserRouter与HashRouter"></a>BrowserRouter与HashRouter</h3><p>1.底层原理不一样</p>
+<ul>
+<li>BrowserRouter使用的是h5的history API，不兼容IE9以下版本</li>
+<li>HashRouter使用的是url的哈希值</li>
+</ul>
+<p>2.path表现形式不一样</p>
+<ul>
+<li>BrowserRouter的路径中没有#</li>
+<li>HashRouter‘的路径包含#</li>
+</ul>
+<p>3.刷新后对路由state的影响：</p>
+<ul>
+<li>BrowserRouter没有任何影响，因为state保存在history中</li>
+<li>HashRouter刷新后会导致路由state参数的丢失</li>
+</ul>
+<p>4.注意：HashRouter可以用于解决一些路径错误相关的问题</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/15/react/react%20hooks(%E4%B8%80)/" rel="prev" title="react——hooks(基础hook)">
+                  <i class="fa fa-chevron-left"></i> react——hooks(基础hook)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/20/react/react%E8%B7%AF%E7%94%B1-V5/" rel="next" title="react——路由(V6)">
+                  react——路由(V6) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sola</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
