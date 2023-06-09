@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/1.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/1.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="vue2与vue3组件通信方式总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue组件通信">
+<meta property="og:url" content="http://example.com/2022/11/19/vue/Vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Sola&#39;s Blog">
+<meta property="og:description" content="vue2与vue3组件通信方式总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-19T13:32:43.000Z">
+<meta property="article:modified_time" content="2023-05-30T01:50:54.663Z">
+<meta property="article:author" content="Sola">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/19/vue/Vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/11/19/vue/Vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/","path":"2022/11/19/vue/Vue组件通信/","title":"Vue组件通信"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue组件通信 | Sola's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sola's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am superman~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags" rel="section"><i class="fa fa-calendar fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1props"><span class="nav-number">1.</span> <span class="nav-text">1.1props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">1.2 自定义事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-%E5%8E%9F%E7%94%9F-DOM-%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">1.2.1 原生 DOM 事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">1.2.2 自定义事件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%85%A8%E5%B1%80%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BA%BF"><span class="nav-number">3.</span> <span class="nav-text">1.3 全局事件总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4v-model"><span class="nav-number">4.</span> <span class="nav-text">1.4v-model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5useAttrs"><span class="nav-number">5.</span> <span class="nav-text">1.5useAttrs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6ref-%E4%B8%8E-parent"><span class="nav-number">6.</span> <span class="nav-text">1.6ref 与$parent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7provide-%E4%B8%8E-inject"><span class="nav-number">7.</span> <span class="nav-text">1.7provide 与 inject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8pinia"><span class="nav-number">8.</span> <span class="nav-text">1.8pinia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9slot"><span class="nav-number">9.</span> <span class="nav-text">1.9slot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text"></span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sola"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Sola</p>
+  <div class="site-description" itemprop="description">hello world</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sola-grj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sola-grj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5484887335" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5484887335" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1313562402&auto=1&height=66"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/19/vue/Vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Sola">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sola's Blog">
+      <meta itemprop="description" content="hello world">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vue组件通信 | Sola's Blog">
+      <meta itemprop="description" content="vue2与vue3组件通信方式总结">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue组件通信
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-19 21:32:43" itemprop="dateCreated datePublished" datetime="2022-11-19T21:32:43+08:00">2022-11-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-05-30 09:50:54" itemprop="dateModified" datetime="2023-05-30T09:50:54+08:00">2023-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">vue2与vue3组件通信方式总结</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>比如:vue2 组件通信方式</strong></p>
+<p>**props:**可以实现父子组件、子父组件、甚至兄弟组件通信</p>
+<p><strong>自定义事件</strong>:可以实现子父组件通信</p>
+<p><strong>全局事件总线$bus</strong>:可以实现任意组件通信</p>
+<p>**pubsub:**发布订阅模式实现任意组件通信</p>
+<p><strong>vuex</strong>:集中式状态管理容器，实现任意组件通信</p>
+<p><strong>ref</strong>:父组件获取子组件实例 VC,获取子组件的响应式数据以及方法</p>
+<p>**slot:**插槽(默认插槽、具名插槽、作用域插槽)实现父子组件通信……..</p>
+<h3 id="1-1props"><a href="#1-1props" class="headerlink" title="1.1props"></a>1.1props</h3><p>props 可以实现父子组件通信,在 vue3 中我们可以通过 defineProps 获取父组件传递的数据。且在组件内部不需要引入 defineProps 方法可以直接使用！</p>
+<p><strong>父组件给子组件传递数据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Child info=&quot;我爱祖国&quot; :money=&quot;money&quot;&gt;&lt;/Child&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>子组件获取父组件传递数据:方式 1</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let props = defineProps(&#123;</span><br><span class="line">  info:&#123;</span><br><span class="line">   type:String,//接受的数据类型</span><br><span class="line">   default:&#x27;默认参数&#x27;,//接受默认数据</span><br><span class="line">  &#125;,</span><br><span class="line">  money:&#123;</span><br><span class="line">   type:Number,</span><br><span class="line">   default:0</span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>子组件获取父组件传递数据:方式 2</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let props = defineProps([&quot;info&quot;,&#x27;money&#x27;]);</span><br></pre></td></tr></table></figure>
+
+<p>子组件获取到 props 数据就可以在模板中使用了,但是切记 props 是只读的(只能读取，不能修改)</p>
+<h3 id="1-2-自定义事件"><a href="#1-2-自定义事件" class="headerlink" title="1.2 自定义事件"></a>1.2 自定义事件</h3><p>在 vue 框架中事件分为两种:一种是原生的 DOM 事件，另外一种自定义事件。</p>
+<p>原生 DOM 事件可以让用户与网页进行交互，比如 click、dbclick、change、mouseenter、mouseleave….</p>
+<p>自定义事件可以实现子组件给父组件传递数据</p>
+<h4 id="1-2-1-原生-DOM-事件"><a href="#1-2-1-原生-DOM-事件" class="headerlink" title="1.2.1 原生 DOM 事件"></a>1.2.1 原生 DOM 事件</h4><p>代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;pre @click=&quot;handler&quot;&gt;</span><br><span class="line">     我是祖国的老花骨朵</span><br><span class="line">&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当前代码级给 pre 标签绑定原生 DOM 事件点击事件,默认会给事件回调注入 event 事件对象。当然点击事件想注入多个参数可以按照下图操作。但是切记注入的事件对象务必叫做$event.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div @click=&quot;handler1(1,2,3,$event)&quot;&gt;我要传递多个参数&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 vue3 框架 click、dbclick、change(这类原生 DOM 事件),不管是在标签、自定义标签上(组件标签)都是原生 DOM 事件。</p>
+<p><strong><!--vue2中却不是这样的,在vue2中组件标签需要通过native修饰符才能变为原生DOM事件--></strong></p>
+<h4 id="1-2-2-自定义事件"><a href="#1-2-2-自定义事件" class="headerlink" title="1.2.2 自定义事件"></a>1.2.2 自定义事件</h4><p>自定义事件可以实现子组件给父组件传递数据.在项目中是比较常用的。</p>
+<p>比如在父组件内部给子组件(Event2)绑定一个自定义事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Event2  @xxx=&quot;handler3&quot;&gt;&lt;/Event2&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 Event2 子组件内部触发这个自定义事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;我是子组件2&lt;/h1&gt;</span><br><span class="line">    &lt;button @click=&quot;handler&quot;&gt;点击我触发xxx自定义事件&lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">let $emit = defineEmits([&quot;xxx&quot;]);</span><br><span class="line">const handler = () =&gt; &#123;</span><br><span class="line">  $emit(&quot;xxx&quot;, &quot;法拉利&quot;, &quot;茅台&quot;);</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们会发现在 script 标签内部,使用了 defineEmits 方法，此方法是 vue3 提供的方法,不需要引入直接使用。defineEmits 方法执行，传递一个数组，数组元素即为将来组件需要触发的自定义事件类型，此方执行会返回一个$emit 方法用于触发自定义事件。</p>
+<p>当点击按钮的时候，事件回调内部调用$emit 方法去触发自定义事件,第一个参数为触发事件类型，第二个、三个、N 个参数即为传递给父组件的数据。</p>
+<p>需要注意的是:代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Event2  @xxx=&quot;handler3&quot; @click=&quot;handler&quot;&gt;&lt;/Event2&gt;</span><br></pre></td></tr></table></figure>
+
+<p>正常说组件标签书写@click 应该为原生 DOM 事件,但是如果子组件内部通过 defineEmits 定义就变为自定义事件了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let $emit = defineEmits([&quot;xxx&quot;,&#x27;click&#x27;]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-全局事件总线"><a href="#1-3-全局事件总线" class="headerlink" title="1.3 全局事件总线"></a>1.3 全局事件总线</h3><p>全局事件总线可以实现任意组件通信，在 vue2 中可以根据 VM 与 VC 关系推出全局事件总线。</p>
+<p>但是在 vue3 中没有 Vue 构造函数，也就没有 Vue.prototype.以及组合式 API 写法没有 this，</p>
+<p>那么在 Vue3 想实现全局事件的总线功能就有点不现实啦，如果想在 Vue3 中使用全局事件总线功能</p>
+<p>可以使用插件 mitt 实现。</p>
+<p><strong>mitt:官网地址:<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mitt">https://www.npmjs.com/package/mitt</a></strong></p>
+<h3 id="1-4v-model"><a href="#1-4v-model" class="headerlink" title="1.4v-model"></a>1.4v-model</h3><p>v-model 指令可是收集表单数据(数据双向绑定)，除此之外它也可以实现父子组件数据同步。</p>
+<p>而 v-model 实指利用 props[modelValue]与自定义事件[update:modelValue]实现的。</p>
+<p>下方代码:相当于给组件 Child 传递一个 props(modelValue)与绑定一个自定义事件 update:modelValue</p>
+<p>实现父子组件数据同步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Child v-model=&quot;msg&quot;&gt;&lt;/Child&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 vue3 中一个组件可以通过使用多个 v-model,让父子组件多个数据同步,下方代码相当于给组件 Child 传递两个 props 分别是 pageNo 与 pageSize，以及绑定两个自定义事件 update:pageNo 与 update:pageSize 实现父子数据同步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Child v-model:pageNo=&quot;msg&quot; v-model:pageSize=&quot;msg1&quot;&gt;&lt;/Child&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5useAttrs"><a href="#1-5useAttrs" class="headerlink" title="1.5useAttrs"></a>1.5useAttrs</h3><p>在 Vue3 中可以利用 useAttrs 方法获取组件的属性与事件(包含:原生 DOM 事件或者自定义事件),次函数功能类似于 Vue2 框架中$attrs属性与$listeners 方法。</p>
+<p>比如:在父组件内部使用一个子组件 my-button</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-button type=&quot;success&quot; size=&quot;small&quot; title=&#x27;标题&#x27; @click=&quot;handler&quot;&gt;&lt;/my-button&gt;</span><br></pre></td></tr></table></figure>
+
+<p>子组件内部可以通过 useAttrs 方法获取组件属性与事件.因此你也发现了，它类似于 props,可以接受父组件传递过来的属性与属性值。需要注意如果 defineProps 接受了某一个属性，useAttrs 方法返回的对象身上就没有相应属性与属性值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123;useAttrs&#125; from &#x27;vue&#x27;;</span><br><span class="line">let $attrs = useAttrs();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-6ref-与-parent"><a href="#1-6ref-与-parent" class="headerlink" title="1.6ref 与$parent"></a>1.6ref 与$parent</h3><p>ref,提及到 ref 可能会想到它可以获取元素的 DOM 或者获取子组件实例的 VC。既然可以在父组件内部通过 ref 获取子组件实例 VC，那么子组件内部的方法与响应式数据父组件可以使用的。</p>
+<p>比如:在父组件挂载完毕获取组件实例</p>
+<p>父组件内部代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;ref与$parent&lt;/h1&gt;</span><br><span class="line">    &lt;Son ref=&quot;son&quot;&gt;&lt;/Son&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import Son from &quot;./Son.vue&quot;;</span><br><span class="line">import &#123; onMounted, ref &#125; from &quot;vue&quot;;</span><br><span class="line">const son = ref();</span><br><span class="line">onMounted(() =&gt; &#123;</span><br><span class="line">  console.log(son.value);</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是需要注意，如果想让父组件获取子组件的数据或者方法需要通过 defineExpose 对外暴露,因为 vue3 中组件内部的数据对外“关闭的”，外部不能访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123; ref &#125; from &quot;vue&quot;;</span><br><span class="line">//数据</span><br><span class="line">let money = ref(1000);</span><br><span class="line">//方法</span><br><span class="line">const handler = ()=&gt;&#123;</span><br><span class="line">&#125;</span><br><span class="line">defineExpose(&#123;</span><br><span class="line">  money,</span><br><span class="line">   handler</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>$parent 可以获取某一个组件的父组件实例 VC,因此可以使用父组件内部的数据与方法。必须子组件内部拥有一个按钮点击时候获取父组件实例，当然父组件的数据与方法需要通过 defineExpose 方法对外暴露</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click=&quot;handler($parent)&quot;&gt;点击我获取父组件实例&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-7provide-与-inject"><a href="#1-7provide-与-inject" class="headerlink" title="1.7provide 与 inject"></a>1.7provide 与 inject</h3><p><strong>provide[提供]</strong></p>
+<p><strong>inject[注入]</strong></p>
+<p>vue3 提供两个方法 provide 与 inject,可以实现隔辈组件传递参数</p>
+<p>组件组件提供数据:</p>
+<p>provide 方法用于提供数据，此方法执需要传递两个参数,分别提供数据的 key 与提供数据 value</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123;provide&#125; from &#x27;vue&#x27;</span><br><span class="line">provide(&#x27;token&#x27;,&#x27;admin_token&#x27;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>后代组件可以通过 inject 方法获取数据,通过 key 获取存储的数值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123;inject&#125; from &#x27;vue&#x27;</span><br><span class="line">let token = inject(&#x27;token&#x27;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-8pinia"><a href="#1-8pinia" class="headerlink" title="1.8pinia"></a>1.8pinia</h3><p><strong>pinia 官网:<a target="_blank" rel="noopener" href="https://pinia.web3doc.top/">https://pinia.web3doc.top/</a></strong></p>
+<p>pinia 也是集中式管理状态容器,类似于 vuex。但是核心概念没有 mutation、modules,使用方式参照官网</p>
+<h3 id="1-9slot"><a href="#1-9slot" class="headerlink" title="1.9slot"></a>1.9slot</h3><p>插槽：默认插槽、具名插槽、作用域插槽可以实现父子组件通信.</p>
+<p><strong>默认插槽:</strong></p>
+<p>在子组件内部的模板中书写 slot 全局组件标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;slot&gt;&lt;/slot&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在父组件内部提供结构：Todo 即为子组件,在父组件内部使用的时候，在双标签内部书写结构传递给子组件</p>
+<p>注意开发项目的时候默认插槽一般只有一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Todo&gt;</span><br><span class="line">  &lt;h1&gt;我是默认插槽填充的结构&lt;/h1&gt;</span><br><span class="line">&lt;/Todo&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>具名插槽：</strong></p>
+<p>顾名思义，此插槽带有名字在组件内部留多个指定名字的插槽。</p>
+<p>下面是一个子组件内部,模板中留两个插槽</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;todo&lt;/h1&gt;</span><br><span class="line">    &lt;slot name=&quot;a&quot;&gt;&lt;/slot&gt;</span><br><span class="line">    &lt;slot name=&quot;b&quot;&gt;&lt;/slot&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>父组件内部向指定的具名插槽传递结构。需要注意 v-slot：可以替换为#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;slot&lt;/h1&gt;</span><br><span class="line">    &lt;Todo&gt;</span><br><span class="line">      &lt;template v-slot:a&gt;  //可以用#a替换</span><br><span class="line">        &lt;div&gt;填入组件A部分的结构&lt;/div&gt;</span><br><span class="line">      &lt;/template&gt;</span><br><span class="line">      &lt;template v-slot:b&gt;//可以用#b替换</span><br><span class="line">        &lt;div&gt;填入组件B部分的结构&lt;/div&gt;</span><br><span class="line">      &lt;/template&gt;</span><br><span class="line">    &lt;/Todo&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import Todo from &quot;./Todo.vue&quot;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>作用域插槽</strong></p>
+<p>作用域插槽：可以理解为，子组件数据由父组件提供，但是子组件内部决定不了自身结构与外观(样式)</p>
+<p>子组件 Todo 代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;todo&lt;/h1&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">     &lt;!--组件内部遍历数组--&gt;</span><br><span class="line">      &lt;li v-for=&quot;(item,index) in todos&quot; :key=&quot;item.id&quot;&gt;</span><br><span class="line">         &lt;!--作用域插槽将数据回传给父组件--&gt;</span><br><span class="line">         &lt;slot :$row=&quot;item&quot; :$index=&quot;index&quot;&gt;&lt;/slot&gt;</span><br><span class="line">      &lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">defineProps([&#x27;todos&#x27;]);//接受父组件传递过来的数据</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>父组件内部代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt;slot&lt;/h1&gt;</span><br><span class="line">    &lt;Todo :todos=&quot;todos&quot;&gt;</span><br><span class="line">      &lt;template v-slot=&quot;&#123;$row,$index&#125;&quot;&gt;</span><br><span class="line">         &lt;!--父组件决定子组件的结构与外观--&gt;</span><br><span class="line">         &lt;span :style=&quot;&#123;color:$row.done?&#x27;green&#x27;:&#x27;red&#x27;&#125;&quot;&gt;&#123;&#123;$row.title&#125;&#125;&lt;/span&gt;</span><br><span class="line">      &lt;/template&gt;</span><br><span class="line">    &lt;/Todo&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import Todo from &quot;./Todo.vue&quot;;</span><br><span class="line">import &#123; ref &#125; from &quot;vue&quot;;</span><br><span class="line">//父组件内部数据</span><br><span class="line">let todos = ref([</span><br><span class="line">  &#123; id: 1, title: &quot;吃饭&quot;, done: true &#125;,</span><br><span class="line">  &#123; id: 2, title: &quot;睡觉&quot;, done: false &#125;,</span><br><span class="line">  &#123; id: 3, title: &quot;打豆豆&quot;, done: true &#125;,</span><br><span class="line">]);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%8A%8A%E6%95%B0%E7%BB%84%E6%97%8B%E8%BD%ACK%E6%AD%A5/" rel="prev" title="把一个数组旋转K步">
+                  <i class="fa fa-chevron-left"></i> 把一个数组旋转K步
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sola</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

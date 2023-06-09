@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/1.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/1.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="数字千分位格式化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字千分位格式化">
+<meta property="og:url" content="http://example.com/2022/11/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E5%AD%97%E5%8D%83%E5%88%86%E4%BD%8D%E6%A0%BC%E5%BC%8F%E5%8C%96/index.html">
+<meta property="og:site_name" content="Sola&#39;s Blog">
+<meta property="og:description" content="数字千分位格式化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-19T13:32:43.000Z">
+<meta property="article:modified_time" content="2023-06-09T07:02:27.624Z">
+<meta property="article:author" content="Sola">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E5%AD%97%E5%8D%83%E5%88%86%E4%BD%8D%E6%A0%BC%E5%BC%8F%E5%8C%96/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/11/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E5%AD%97%E5%8D%83%E5%88%86%E4%BD%8D%E6%A0%BC%E5%BC%8F%E5%8C%96/","path":"2022/11/19/数据结构与算法/数字千分位格式化/","title":"数字千分位格式化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数字千分位格式化 | Sola's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sola's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I am superman~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-标签"><a href="/tags" rel="section"><i class="fa fa-calendar fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A6%82%E4%B8%8B"><span class="nav-number">1.</span> <span class="nav-text">题目如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%A6%82%E4%B8%8B"><span class="nav-number">2.</span> <span class="nav-text">思路如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">单元测试</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sola"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Sola</p>
+  <div class="site-description" itemprop="description">hello world</div>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sola-grj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sola-grj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5484887335" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5484887335" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+        </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1313562402&auto=1&height=66"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E5%AD%97%E5%8D%83%E5%88%86%E4%BD%8D%E6%A0%BC%E5%BC%8F%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Sola">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sola's Blog">
+      <meta itemprop="description" content="hello world">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数字千分位格式化 | Sola's Blog">
+      <meta itemprop="description" content="数字千分位格式化">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数字千分位格式化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-19 21:32:43" itemprop="dateCreated datePublished" datetime="2022-11-19T21:32:43+08:00">2022-11-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-09 15:02:27" itemprop="dateModified" datetime="2023-06-09T15:02:27+08:00">2023-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">数字千分位格式化</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="题目如下"><a href="#题目如下" class="headerlink" title="题目如下"></a>题目如下</h3><ul>
+<li>数字千分位格式化，输出字符串</li>
+<li>如输入数字12050100，输出字符串 12,050,100</li>
+<li>注意：逆序判断</li>
+</ul>
+<h3 id="思路如下"><a href="#思路如下" class="headerlink" title="思路如下"></a>思路如下</h3><ul>
+<li>转换为数组，reverse，每3位拆分</li>
+<li>使用正则表达式</li>
+<li>使用字符拆分</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span> 千分位格式化</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> <span class="variable">sola</span>-grj</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 千分位格式化（使用数组）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> n number</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">format1</span>(<span class="params">n: <span class="built_in">number</span></span>): <span class="built_in">string</span> &#123;</span><br><span class="line">    n = <span class="title class_">Math</span>.<span class="title function_">floor</span>(n) <span class="comment">// 只考虑整数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> s = n.<span class="title function_">toString</span>()</span><br><span class="line">    <span class="keyword">const</span> arr = s.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>()</span><br><span class="line">    <span class="keyword">return</span> arr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">prev, val, index</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (index % <span class="number">3</span> === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (prev) &#123;</span><br><span class="line">                <span class="keyword">return</span> val + <span class="string">&#x27;,&#x27;</span> + prev</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> val</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> val + prev</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数字千分位格式化（字符串分析）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> n number</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">format2</span>(<span class="params">n: <span class="built_in">number</span></span>): <span class="built_in">string</span> &#123;</span><br><span class="line">    n = <span class="title class_">Math</span>.<span class="title function_">floor</span>(n) <span class="comment">// 只考虑整数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> res = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">const</span> s = n.<span class="title function_">toString</span>()</span><br><span class="line">    <span class="keyword">const</span> length = s.<span class="property">length</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">const</span> j = length - i</span><br><span class="line">        <span class="keyword">if</span> (j % <span class="number">3</span> === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i === <span class="number">0</span>) &#123;</span><br><span class="line">                res = s[i] + res</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res = <span class="string">&#x27;,&#x27;</span> + s[i] + res</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = s[i] + res</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// // 功能测试</span></span><br><span class="line"><span class="comment">// const n = 10201004050</span></span><br><span class="line"><span class="comment">// console.info(&#x27;format1&#x27;, format1(n))</span></span><br><span class="line"><span class="comment">// console.info(&#x27;format2&#x27;, format2(n))</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span> 数字千分位格式化</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> <span class="variable">sola</span>-grj</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; format1, format2 &#125; <span class="keyword">from</span> <span class="string">&#x27;./thousands-format&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;数组千分位格式化&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;正常&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> n = <span class="number">10201004050</span></span><br><span class="line">        <span class="keyword">const</span> res = <span class="title function_">format2</span>(n)</span><br><span class="line">        <span class="title function_">expect</span>(res).<span class="title function_">toBe</span>(<span class="string">&#x27;10,201,004,050&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;小于 1000&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">expect</span>(<span class="title function_">format2</span>(<span class="number">0</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">        <span class="title function_">expect</span>(<span class="title function_">format2</span>(<span class="number">10</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;10&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E8%8E%B7%E5%8F%961-max%E6%89%80%E6%9C%89%E7%9A%84%E5%AF%B9%E7%A7%B0%E6%95%B0(%E5%9B%9E%E6%96%87%E6%95%B0)/" rel="prev" title="获取1-max所有的对称数（回文数）">
+                  <i class="fa fa-chevron-left"></i> 获取1-max所有的对称数（回文数）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%B1%82%E4%B8%80%E4%B8%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACK%E5%B0%8F%E5%80%BC/" rel="next" title="求一个二叉搜索树的第K小值">
+                  求一个二叉搜索树的第K小值 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sola</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
